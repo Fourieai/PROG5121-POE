@@ -1,0 +1,131 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
+ */
+package com.mycompany.registrationandloginfeature;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class UserAuthTest {
+
+    private UserAuth createUser() {
+        return new UserAuth("kyl_1", "Ch&&sec@ke99!", "+27838968976");
+    }
+
+    //  USERNAME TESTS
+
+    @Test
+    public void usernameValid_ShouldReturnTrue() {
+        UserAuth user = createUser();
+        assertTrue(user.isUsernameValid());
+    }
+
+    @Test
+    public void usernameInvalid_NoUnderscore_ShouldReturnFalse() {
+        UserAuth user = new UserAuth("kyl1", "Ch&&sec@ke99!", "+27838968976");
+        assertFalse(user.isUsernameValid());
+    }
+
+    @Test
+    public void usernameTooLong_ShouldReturnFalse() {
+        UserAuth user = new UserAuth("kyl_123", "Ch&&sec@ke99!", "+27838968976");
+        assertFalse(user.isUsernameValid());
+    }
+
+    //PASSWORD TESTS
+
+    @Test
+    public void passwordValid_ShouldReturnTrue() {
+        UserAuth user = createUser();
+        assertTrue(user.isPasswordValid());
+    }
+
+    @Test
+    public void passwordInvalid_NoCapital_ShouldReturnFalse() {
+        UserAuth user = new UserAuth("kyl_1", "ch&&sec@ke99!", "+27838968976");
+        assertFalse(user.isPasswordValid());
+    }
+
+    @Test
+    public void passwordInvalid_NoNumber_ShouldReturnFalse() {
+        UserAuth user = new UserAuth("kyl_1", "Ch&&sec@ke!!", "+27838968976");
+        assertFalse(user.isPasswordValid());
+    }
+
+    @Test
+    public void passwordInvalid_NoSpecialChar_ShouldReturnFalse() {
+        UserAuth user = new UserAuth("kyl_1", "Chessecake99", "+27838968976");
+        assertFalse(user.isPasswordValid());
+    }
+
+    @Test
+    public void passwordInvalid_TooShort_ShouldReturnFalse() {
+        UserAuth user = new UserAuth("kyl_1", "Ch@9", "+27838968976");
+        assertFalse(user.isPasswordValid());
+    }
+
+    //  CELL PHONE TESTS 
+
+    @Test
+    public void cellPhoneValid_ShouldReturnTrue() {
+        UserAuth user = createUser();
+        assertTrue(user.isCellPhoneValid());
+    }
+
+    @Test
+    public void cellPhoneInvalid_NoCountryCode_ShouldReturnFalse() {
+        UserAuth user = new UserAuth("kyl_1", "Ch&&sec@ke99!", "0838968976");
+        assertFalse(user.isCellPhoneValid());
+    }
+
+    @Test
+    public void cellPhoneInvalid_TooShort_ShouldReturnFalse() {
+        UserAuth user = new UserAuth("kyl_1", "Ch&&sec@ke99!", "+27123");
+        assertFalse(user.isCellPhoneValid());
+    }
+
+    @Test
+    public void cellPhoneInvalid_WithLetters_ShouldReturnFalse() {
+        UserAuth user = new UserAuth("kyl_1", "Ch&&sec@ke99!", "+27ABC896897");
+        assertFalse(user.isCellPhoneValid());
+    }
+
+    //REGISTRATION TESTS 
+
+    @Test
+    public void registerValidUser_ShouldReturnSuccessMessage() {
+        UserAuth user = createUser();
+
+        String result = user.register();
+
+        assertTrue(result.contains("Username successfully captured"));
+        assertTrue(result.contains("Password successfully captured"));
+        assertTrue(result.contains("Cell Phone number successfully captured"));
+    }
+
+    @Test
+    public void registerInvalidUser_ShouldReturnErrorMessage() {
+        UserAuth user = new UserAuth("badname", "123", "123");
+
+        String result = user.register();
+
+        assertTrue(result.toLowerCase().contains("invalid"));
+    }
+
+    // LOGIN TESTS 
+
+    @Test
+    public void loginCorrect_ShouldReturnTrue() {
+        UserAuth user = createUser();
+        user.register(); // 
+        assertTrue(user.login("kyl_1", "Ch&&sec@ke99!"));
+    }
+
+    @Test
+    public void loginIncorrect_ShouldReturnFalse() {
+        UserAuth user = createUser();
+        user.register();
+        assertFalse(user.login("kyl_1", "wrong"));
+    }
+}
