@@ -91,7 +91,7 @@ messageArray = new JSONArray();
 
 //prompt user limit
 
-System.out.print("\nHow many messages would you want to send: \n");
+System.out.print("How many messages would you want to send: ");
 
 int messageOverall;
 
@@ -121,7 +121,7 @@ while (true) {
 
 System.out.println("\nEnter recipients phone number which is 9 digits long.\n");
 
-System.out.print("\nEnter recipient number:(+27) \n");
+System.out.print("Enter recipient number:(+27)");
 recipientNum = input.nextLine();
 
 //regex number validity + phone numbers validated with international code 
@@ -212,7 +212,7 @@ System.out.println("\n   Messages Menu   \n");
 System.out.println("1. Send");
 System.out.println("2. Store");
 System.out.println("3. Disregard");
-System.out.print("\nChoose action:\n");
+System.out.print("\nChoose action: \n");
 
 String option = input.nextLine();
 

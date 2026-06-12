@@ -41,9 +41,11 @@ while (running) {
 //display menu
 
 System.out.println("\n  Main Menu  \n ");
-System.out.println("1.Send Messages");
-System.out.println("2.Show recent messages");
-System.out.println("3.Quit");
+System.out.println("1. Send Messages");
+System.out.println("2. Show recent messages");
+System.out.println("3. Stored Messages");
+System.out.println("4. Quit");
+
 
 System.out.print("\nChoose Option: \n");
 
@@ -70,9 +72,8 @@ System.out.println("\nOption you chose: \n" + choice);
 if (choice == 1) {
                   
 System.out.println("\nYou selected Send Messages. \n");
-System.out.println("\nThis feature will be implemented here. \n");
 
-//transoprtto send messages
+//transport to send messages
 
 Messages.sendMessages();
 
@@ -83,20 +84,27 @@ System.out.println("\nYou selected show recent messages.\n");
 
 //show recent messages
 Messages.displayMessages();
-    
- }
  
-else if(choice == 3 ) {
+} else if(choice == 3 ) {
      
-//exit option
+//the feature is now available and will be implemented
 
-running = false;
+System.out.println("\nYou selected show recent messages.\n");
 
-System.out.println("\nGood Bye!\n");
+//transport to stored message by user
 
+StoredMessages.openStoredMessagesMenu();
+
+} else if(choice == 4) {
+        
 //end code
-          break;
-                  
+        
+running = false;
+  
+//prompt response
+    
+ System.out.println("\nGood Bye!\n");
+ 
  } else {
      
 System.out.println("\nInvalid choice, please try again.");
